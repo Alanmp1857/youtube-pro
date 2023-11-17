@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
-import store from "../utils/store";
 import { cacheResults } from "../utils/searchSlice";
 
 const Head = () => {
@@ -25,10 +24,10 @@ const Head = () => {
     return () => {
       clearTimeout(timer);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   const getSearchSuggestions = async () => {
-    console.log(searchQuery);
     const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
     const json = await data.json();
     // console.log(json[1]);
@@ -86,7 +85,7 @@ const Head = () => {
         </div>
         {showSuggestions && (
           <div className="fixed bg-white ml-72 py-2 px-5 w-[636px] rounded-lg shadow-md">
-            <ul class="text-left">
+            <ul className="text-left">
               {suggestions.map((s) => (
                 <li
                   className="flex hover:bg-gray-100 rounded-lg cursor-pointer"
